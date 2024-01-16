@@ -158,8 +158,7 @@ class Tokenizer:
         for subword, subword_tokens in zip(subwords, subword_tokens_list):
             special = subword_tokens[0] >= self.eot
             with_space = subword.startswith(" ")
-            punctuation = subword.strip() in string.punctuation
-            if special or with_space or punctuation or len(words) == 0:
+            if special or with_space or len(words) == 0:
                 words.append(subword)
                 word_tokens.append(subword_tokens)
             else:

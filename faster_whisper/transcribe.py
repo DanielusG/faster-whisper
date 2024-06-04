@@ -300,7 +300,7 @@ class WhisperModel:
         sampling_rate = self.feature_extractor.sampling_rate
 
         if not isinstance(audio, np.ndarray):
-            audio = decode_audio(audio, sampling_rate=sampling_rate)
+            audio = decode_audio(audio, start, stop, sampling_rate)
         
         duration = audio.shape[0] / sampling_rate
         duration_after_vad = duration

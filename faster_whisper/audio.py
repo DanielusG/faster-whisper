@@ -1,7 +1,7 @@
 import subprocess
 import numpy as np
 
-def load_audio(file: str, start: int, stop: int, sr: int = 16000):
+def decode_audio(file: str, start: int, stop: int, sr: int = 16000):
     """
     Open an audio file and read as mono waveform, resampling as necessary
 

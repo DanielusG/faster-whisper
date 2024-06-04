@@ -46,3 +46,17 @@ def decode_audio(file: str, start: int, stop: int, sr: int = 16000):
         raise RuntimeError(f"Failed to load audio: {e.stderr.decode()}") from e
 
     return np.frombuffer(out, np.int16).flatten().astype(np.float32) / 32768.0
+
+def pad_or_trim(array, length: int, *, axis: int = -1):
+    """
+    Pad or trim the audio array to N_SAMPLES, as expected by the encoder.
+    """
+    if array.shape[axis] > length:
+        array = array.take(indices=range(length), axis=axis)
+
+    if array.shape[axis] < length:
+        pad_widths = [(0, 0)] * array.ndim
+        pad_widths[axis] = (0, length - array.shape[axis])
+        array = np.pad(array, pad_widths)
+
+    return array

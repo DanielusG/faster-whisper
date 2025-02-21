@@ -47,9 +47,9 @@ def decode_audio(file: str, start: int, stop: int, sr: int = 16000):
 
     return np.frombuffer(out, np.int16).flatten().astype(np.float32) / 32768.0
 
-def pad_or_trim(array, length: int, *, axis: int = -1):
+def pad_or_trim(array, length: int = 3000, *, axis: int = -1):
     """
-    Pad or trim the audio array to N_SAMPLES, as expected by the encoder.
+    Pad or trim the Mel features array to 3000, as expected by the encoder.
     """
     if array.shape[axis] > length:
         array = array.take(indices=range(length), axis=axis)

@@ -705,6 +705,8 @@ class WhisperModel:
     def transcribe(
         self,
         audio: Union[str, BinaryIO, np.ndarray],
+        start: float = 0,
+        stop: Optional[float] = None,
         language: Optional[str] = None,
         task: str = "transcribe",
         log_progress: bool = False,
@@ -751,6 +753,8 @@ class WhisperModel:
 
         Arguments:
           audio: Path to the input file (or a file-like object), or the audio waveform.
+            start: Start time in seconds.
+            stop: Stop time in seconds.
           language: The language spoken in the audio. It should be a language code such
             as "en" or "fr". If not set, the language will be detected in the first 30 seconds
             of audio.
@@ -831,8 +835,8 @@ class WhisperModel:
             multilingual = False
 
         if not isinstance(audio, np.ndarray):
-            audio = decode_audio(audio, sampling_rate=sampling_rate)
-
+            audio = decode_audio(audio, start, stop, sampling_rate)
+        
         duration = audio.shape[0] / sampling_rate
         duration_after_vad = duration
 

@@ -255,6 +255,8 @@ class BatchedInferencePipeline:
     def transcribe(
         self,
         audio: Union[str, BinaryIO, np.ndarray],
+        start: float = 0,
+        stop: Optional[float] = None,
         language: Optional[str] = None,
         task: str = "transcribe",
         log_progress: bool = False,
@@ -385,7 +387,7 @@ class BatchedInferencePipeline:
             multilingual = False
 
         if not isinstance(audio, np.ndarray):
-            audio = decode_audio(audio, sampling_rate=sampling_rate)
+            audio = decode_audio(audio, start, stop, sampling_rate=sampling_rate)
         duration = audio.shape[0] / sampling_rate
 
         self.model.logger.info(

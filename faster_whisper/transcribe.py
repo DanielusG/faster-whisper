@@ -387,7 +387,7 @@ class BatchedInferencePipeline:
             multilingual = False
 
         if not isinstance(audio, np.ndarray):
-            audio = decode_audio(audio, start, stop, sampling_rate=sampling_rate)
+            audio = decode_audio(audio, start, stop, sampling_rate)
         duration = audio.shape[0] / sampling_rate
 
         self.model.logger.info(
